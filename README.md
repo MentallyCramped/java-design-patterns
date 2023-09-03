@@ -75,7 +75,7 @@ The `ProblemSolver` class acts as the context and uses an `Algorithm` to solve a
 
 ```java
 // Initialize ProblemSolver with an algorithm
-ProblemSolver<String, String> solver = ProblemSolver.builder()
+ProblemSolver<String, String> solver = ProblemSolver.<String, String>builder()
     .algorithm(new TestAlgorithmOne())
     .algorithmResultTransformer(result -> result)
     .build();
