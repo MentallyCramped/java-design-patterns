@@ -12,8 +12,7 @@ import lombok.Setter;
  * <p>
  * The ProblemSolver class is part of the Strategy design pattern. It serves as the context within
  * which a strategy (algorithm) is applied. The class is generic, allowing it to work with any type
- * of problem and solution, as defined by the types {@code AlgorithmResultType} and
- * {@code SolutionResultType}, respectively.
+ * of problem and solution, as defined by the types {@code T} and {@code R}, respectively.
  * </p>
  *
  * <p>
@@ -22,27 +21,26 @@ import lombok.Setter;
  * to transform the result of the algorithm execution to a different type, if necessary.
  * </p>
  *
- * @param <AlgorithmResultType> The type of the result produced by the algorithm.
- * @param <SolutionResultType>  The type of the result returned after transforming the algorithm's
- *                              result.
+ * @param <T> The type of the result produced by the algorithm.
+ * @param <R> The type of the result returned after transforming the algorithm's result.
  * @see Algorithm
  */
 @Builder
 @Setter
-public class ProblemSolver<AlgorithmResultType, SolutionResultType> {
+public class ProblemSolver<T, R> {
 
   @NonNull
-  private Algorithm<AlgorithmResultType> algorithm;
+  private Algorithm<T> algorithm;
   @NonNull
-  private final Function<AlgorithmResultType, SolutionResultType> algorithmResultTransformer;
+  private final Function<T, R> algorithmResultTransformer;
 
   /**
    * Solves the problem using the currently set algorithmic strategy and transforms its result.
    *
-   * @return The transformed result, as defined by the type {@code SolutionResultType}.
+   * @return The transformed result, as defined by the type {@code R}.
    */
-  public SolutionResultType solveProblem() {
-    AlgorithmResultType algorithmResult = algorithm.executeAlgorithm();
+  public R solveProblem() {
+    T algorithmResult = algorithm.executeAlgorithm();
     return algorithmResultTransformer.apply(algorithmResult);
   }
 }

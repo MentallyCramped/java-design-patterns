@@ -67,15 +67,15 @@ existing code.
   e.g., `TestAlgorithmOne`, `TestAlgorithmTwo`).
 
 - **Result Transformer**: A functional interface used for transforming the algorithm's result to a
-  type that the `ProblemSolver` returns (`Function<AlgorithmResultType, SolutionResultType>`).
-  
+  type that the `ProblemSolver` returns (`Function<T, R>`).
+- 
 ### Example
 
 The `ProblemSolver` class acts as the context and uses an `Algorithm` to solve a problem. You can easily switch algorithms at runtime without altering the `ProblemSolver` class. Here's a minimal example:
 
 ```java
 // Initialize ProblemSolver with an algorithm
-ProblemSolver<String, String> solver = ProblemSolver.<String, String>builder()
+ProblemSolver<String, String> solver = ProblemSolver.builder()
     .algorithm(new TestAlgorithmOne())
     .algorithmResultTransformer(result -> result)
     .build();

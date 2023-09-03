@@ -5,10 +5,9 @@ package dev.abhay.behavioral.strategy;
  * {@link ProblemSolver}.
  *
  * <p>
- * This interface is generic, allowing it to produce results of any type
- * {@code AlgorithmResultType}. It serves as the strategy in the Strategy design pattern, outlining
- * the contract that concrete algorithms must fulfill. Implementations of this interface define
- * specific ways to solve a problem.
+ * This interface is generic, allowing it to produce results of any type {@code T}. It serves as the
+ * strategy in the Strategy design pattern, outlining the contract that concrete algorithms must
+ * fulfill. Implementations of this interface define specific ways to solve a problem.
  * </p>
  *
  * <p>
@@ -16,10 +15,10 @@ package dev.abhay.behavioral.strategy;
  * algorithm, making it easy to switch or combine strategies in the {@link ProblemSolver}.
  * </p>
  *
- * @param <AlgorithmResultType> The type of result that the algorithm will produce.
+ * @param <T> The type of result that the algorithm will produce.
  * @see ProblemSolver
  */
-public interface Algorithm<AlgorithmResultType> {
+public interface Algorithm<T> {
 
-  AlgorithmResultType executeAlgorithm();
+  T executeAlgorithm();
 }
