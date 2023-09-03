@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
  */
 public class ProblemSolverTest {
 
-  private ProblemSolver problemSolverUnderTest;
+  private ProblemSolver<String, String> problemSolverUnderTest;
   private final static String TEST_ALGORITHM_ONE_RESULT = "Executing Test Algorithm One";
   private final static String TEST_ALGORITHM_TWO_RESULT = "Executing Test Algorithm Two";
 
-  private static class TestAlgorithmOne implements Algorithm {
+  private static class TestAlgorithmOne implements Algorithm<String> {
 
     @Override
     public String executeAlgorithm() {
@@ -22,7 +22,7 @@ public class ProblemSolverTest {
     }
   }
 
-  private static class TestAlgorithmTwo implements Algorithm {
+  private static class TestAlgorithmTwo implements Algorithm<String> {
 
     @Override
     public String executeAlgorithm() {
@@ -33,18 +33,19 @@ public class ProblemSolverTest {
   @BeforeEach
   public void setup() {
     TestAlgorithmOne testAlgorithmOne = new TestAlgorithmOne();
-    problemSolverUnderTest = ProblemSolver.builder()
+    problemSolverUnderTest = ProblemSolver.<String, String>builder()
         .algorithm(testAlgorithmOne)
+        .algorithmResultTransformer((algorithmResult) -> algorithmResult)
         .build();
   }
 
   @Test
-  public void testProblemSolver_executesDefaultAlgorithm() {
+  public void testProblemSolver_executesTestAlgorithmOne() {
     Assertions.assertEquals(problemSolverUnderTest.solveProblem(), TEST_ALGORITHM_ONE_RESULT);
   }
 
   @Test
-  public void testProblemSolver_executesAlternativeAlgorithm() {
+  public void testProblemSolver_executesTestAlgorithmTwo() {
     TestAlgorithmTwo testAlgorithmTwo = new TestAlgorithmTwo();
     problemSolverUnderTest.setAlgorithm(testAlgorithmTwo);
     Assertions.assertEquals(problemSolverUnderTest.solveProblem(), TEST_ALGORITHM_TWO_RESULT);
