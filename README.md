@@ -68,7 +68,7 @@ existing code.
 
 - **Result Transformer**: A functional interface used for transforming the algorithm's result to a
   type that the `ProblemSolver` returns (`Function<AlgorithmResultType, SolutionResultType>`).
-- 
+  
 ### Example
 
 The `ProblemSolver` class acts as the context and uses an `Algorithm` to solve a problem. You can easily switch algorithms at runtime without altering the `ProblemSolver` class. Here's a minimal example:
