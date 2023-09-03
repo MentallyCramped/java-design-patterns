@@ -1,5 +1,6 @@
 package dev.abhay.behavioral.strategy;
 
+import java.util.function.Function;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,9 +34,11 @@ public class ProblemSolverTest {
   @BeforeEach
   public void setup() {
     TestAlgorithmOne testAlgorithmOne = new TestAlgorithmOne();
+    Function<String, String> algorithmResultTransformer = (algorithmResult) -> algorithmResult;
+
     problemSolverUnderTest = ProblemSolver.<String, String>builder()
         .algorithm(testAlgorithmOne)
-        .algorithmResultTransformer((algorithmResult) -> algorithmResult)
+        .algorithmResultTransformer(algorithmResultTransformer)
         .build();
   }
 
@@ -48,6 +51,7 @@ public class ProblemSolverTest {
   public void testProblemSolver_executesTestAlgorithmTwo() {
     TestAlgorithmTwo testAlgorithmTwo = new TestAlgorithmTwo();
     problemSolverUnderTest.setAlgorithm(testAlgorithmTwo);
+
     Assertions.assertEquals(problemSolverUnderTest.solveProblem(), TEST_ALGORITHM_TWO_RESULT);
   }
 
