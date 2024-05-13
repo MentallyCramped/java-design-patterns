@@ -1,8 +1,10 @@
 plugins {
     id("java")
+    jacoco
+    id("io.freefair.lombok") version "8.3"
 }
 
-group = "org.abhay"
+group = "dev.abhay"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -10,8 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.projectlombok:lombok:1.18.28")
-    annotationProcessor("org.projectlombok:lombok:1.18.28")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.5.0")
@@ -19,4 +19,9 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
 }

@@ -31,7 +31,6 @@ public class ProblemSolver<T, R> {
 
   @NonNull
   private Algorithm<T> algorithm;
-  @NonNull
   private final Function<T, R> algorithmResultTransformer;
 
   /**
