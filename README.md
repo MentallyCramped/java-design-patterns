@@ -98,7 +98,7 @@ This example illustrates setting an initial algorithm, solving a problem, and th
 # Design Principles
 - [Composition Over Inheritance](#composition-over-inheritance-code-ref)
 
-## Composition Over Inheritance [[Code Ref]](src/test/java/dev/abhay/designprinciples/favourcomposition)
+## Composition Over Inheritance [[Code Ref]](src/main/java/dev/abhay/designprinciples/favourcomposition)
 
 Composition over inheritance is a fundamental software design principle that emphasizes using object composition (having objects contain other objects) over classical inheritance (extending classes). This principle helps keep each class encapsulated and focused on one task, promotes greater flexibility in code maintenance, and enhances the modularity of the application.
 
