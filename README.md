@@ -35,65 +35,53 @@ To get started with the project:
 
 ## Strategy Pattern [[Code Ref]](src/main/java/dev/abhay/behavioral/strategy/)
 
-The Strategy Pattern is a behavioral design pattern that allows you to define a family of
-algorithms, encapsulate each one of them, and make them interchangeable. This pattern allows the
-algorithm's implementation to vary independently from the clients that use it. The pattern promotes
-adherence to the Open/Closed Principle by enabling you to add new algorithms without altering
-existing code.
+The Strategy Pattern is a behavioral design pattern that enables the definition and encapsulation of a family of algorithms, making them interchangeable. This pattern allows the algorithm's behavior to vary independently from the clients that use it, adhering to the Open/Closed Principle by enabling the addition of new algorithms without modifying existing code.
 
-### Advanced Features in this Repository
+### Features
 
-- **Generics:** This implementation leverages Java's generics to allow for type-safe algorithm
-  strategies. This promotes greater code reusability and cleaner client code.
-
-- **Result Transformation:** A unique twist added to this implementation is the ability to transform
-  the result of an algorithm before it gets returned by the `ProblemSolver`. This is done via a
-  functional interface, which enables a high degree of flexibility in what the `ProblemSolver` can
-  do with the algorithm's result.
+- **Generics**: Utilizes Java's generics to allow for type-safe algorithm strategies, enhancing code reusability and maintainability.
+- **Dynamic Strategy Management**: Supports dynamic changes to the problem-solving strategies at runtime, accommodating flexible solutions to complex problems.
 
 ### When to Use
 
-- When you have multiple ways to complete a task and want to make it easy to switch between them.
+- When you have multiple algorithms for processing data or solving a problem and you need to select between them dynamically at runtime.
+- When the algorithms should be easily switchable without altering the client code that uses them.
+- When promoting testability through decoupling and adherence to the Single Responsibility and Open/Closed principles.
 
-- When the client code that uses the algorithm should not be tightly coupled to the algorithm's
-  implementation.
+### Graph Traversal Example
 
-- When you want to add the ability to transform the results of algorithms dynamically.
+This repository includes a sophisticated example using the Strategy pattern with graph traversal algorithms, showcasing dynamic selection between different traversal methods such as BFS and DFS based on runtime decisions.
 
-### Components
+#### Components
 
-- **Context**: The class that uses an algorithm (`ProblemSolver`).
+- **Graph**: Represents the graph structure with nodes and edges.
+- **BFSAlgorithm and DFSAlgorithm**: Concrete strategies for breadth-first and depth-first graph traversal, respectively.
+- **ProblemSolver**: The context class configured with an `Algorithm` to perform the graph traversal.
 
-- **Strategy**: The interface common to all supported algorithms (`Algorithm`).
-
-- **Concrete Strategy**: Classes implementing the `Strategy` interface (
-  e.g., `TestAlgorithmOne`, `TestAlgorithmTwo`).
-
-- **Result Transformer**: A functional interface used for transforming the algorithm's result to a
-  type that the `ProblemSolver` returns (`Function<T, R>`).
-
-### Example
-
-The `ProblemSolver` class acts as the context and uses an `Algorithm` to solve a problem. You can easily switch algorithms at runtime without altering the `ProblemSolver` class. Here's a minimal example:
+#### Example Usage
 
 ```java
-// Initialize ProblemSolver with an algorithm
-ProblemSolver<String, String> solver = ProblemSolver.builder()
-    .algorithm(new TestAlgorithmOne())
-    .algorithmResultTransformer(result -> result)
+// Create a graph and add edges
+Graph graph = new Graph();
+    graph.addEdge(0, 1);
+    graph.addEdge(0, 2);
+    graph.addEdge(1, 3);
+    graph.addEdge(2, 3);
+
+// Initialize the ProblemSolver with BFS algorithm
+    ProblemSolver<Graph, List<Integer>> solver = ProblemSolver.<Graph, List<Integer>>builder()
+    .algorithm(new BFSAlgorithm(0))
     .build();
 
-// Solve problem with the initial algorithm
-String resultOne = solver.solveProblem();
+// Perform BFS on the graph
+    List<Integer> bfsResult = solver.solveProblem(graph);
 
-// Switch to a different algorithm at runtime
-solver.setAlgorithm(new TestAlgorithmTwo());
-
-// Solve problem with the new algorithm
-String resultTwo = solver.solveProblem();
+// Switch to DFS and perform it on the same graph
+    solver.setAlgorithm(new DFSAlgorithm(0));
+    List<Integer> dfsResult = solver.solveProblem(graph);
 ```
 
-This example illustrates setting an initial algorithm, solving a problem, and then switching to a different algorithm—all at runtime.
+This example emphasizes the flexibility of the Strategy pattern, facilitating runtime switches between different graph traversal strategies without altering the ProblemSolver or client code, showcasing how strategies can be applied to solve practical problems dynamically.
 
 # Design Principles
 - [Composition Over Inheritance](#composition-over-inheritance-code-ref)

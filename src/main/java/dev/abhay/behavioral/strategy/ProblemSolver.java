@@ -1,45 +1,42 @@
 package dev.abhay.behavioral.strategy;
 
-import java.util.function.Function;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Setter;
 
 /**
  * Represents a generic problem solver that uses an interchangeable algorithmic strategy to solve a
- * problem.
+ * specific problem represented by the input data.
  *
  * <p>
  * The ProblemSolver class is part of the Strategy design pattern. It serves as the context within
  * which a strategy (algorithm) is applied. The class is generic, allowing it to work with any type
- * of problem and solution, as defined by the types {@code T} and {@code R}, respectively.
+ * of problem data, as defined by the type {@code R}.
  * </p>
  *
  * <p>
  * The algorithm can be set dynamically at runtime via the {@link #setAlgorithm(Algorithm)} method,
- * allowing the solver to adapt to different problem-solving scenarios. A {@link Function} is used
- * to transform the result of the algorithm execution to a different type, if necessary.
+ * allowing the solver to adapt to different problem-solving scenarios.
  * </p>
  *
+ * @param <R> The type of the input representing the problem.
  * @param <T> The type of the result produced by the algorithm.
- * @param <R> The type of the result returned after transforming the algorithm's result.
  * @see Algorithm
  */
 @Builder
 @Setter
-public class ProblemSolver<T, R> {
+public class ProblemSolver<R, T> {
 
   @NonNull
-  private Algorithm<T> algorithm;
-  private final Function<T, R> algorithmResultTransformer;
+  private Algorithm<R, T> algorithm;
 
   /**
-   * Solves the problem using the currently set algorithmic strategy and transforms its result.
+   * Solves the problem using the currently set algorithmic strategy.
    *
-   * @return The transformed result, as defined by the type {@code R}.
+   * @param problem The problem data to be solved.
+   * @return The result of the algorithm, as defined by the type {@code T}.
    */
-  public R solveProblem() {
-    T algorithmResult = algorithm.executeAlgorithm();
-    return algorithmResultTransformer.apply(algorithmResult);
+  public T solveProblem(R problem) {
+    return algorithm.executeAlgorithm(problem);
   }
 }
