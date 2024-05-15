@@ -1,5 +1,6 @@
-package dev.abhay.designprinciples.favourcomposition.transportexample.engine;
+package dev.abhay.designprinciples.favourcomposition.transportexample.engine.implementations;
 
+import dev.abhay.designprinciples.favourcomposition.transportexample.engine.Engine;
 import lombok.extern.java.Log;
 
 /**
